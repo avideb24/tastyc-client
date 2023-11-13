@@ -2,27 +2,29 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from "../../provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
 
-    const {LogInUser} = useContext(AuthContext);
-
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { LogInUser } = useContext(AuthContext);
     const [disabled, setDisabled] = useState(true);
-
     const captchaRef = useRef(null);
+    const from = location.state?.from?.pathname || '/';
 
-    useEffect( () => {
-        loadCaptchaEnginge(6); 
-    },[])
+    useEffect(() => {
+        loadCaptchaEnginge(6);
+    }, [])
 
     const handleValidate = () => {
         const user_captcha_value = captchaRef.current.value;
         // console.log(user_captcha_value);
-        if(validateCaptcha(user_captcha_value)){
+        if (validateCaptcha(user_captcha_value)) {
             setDisabled(false)
         }
-        else{
+        else {
             setDisabled(true)
         }
     }
@@ -35,13 +37,22 @@ const Login = () => {
         const password = form.password.value;
         // console.log(email, password);
         LogInUser(email, password)
-        .then(result => {
-            const user = result.user;
-            console.log(user);
-        })
-        .catch(err => {
-            console.log(err);
-        })
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                Swal.fire({
+                    icon: "success",
+                    title: "Login Successfully!",
+                });
+                navigate(from, {replace: true})
+            })
+            .catch(err => {
+                console.log(err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Invalid Email or Password!",
+                });
+            })
     }
 
     return (
@@ -69,13 +80,13 @@ const Login = () => {
                                 </label>
                                 <input type="password" name="password" placeholder="password" className="input input-bordered" required />
                                 <div>
-                                <LoadCanvasTemplate />
-                                <input type="text" ref={captchaRef} placeholder="captcha" name="captcha" className="border-2 mt-3" /> <br />
-                                <button onClick={handleValidate} className="btn btn-outline btn-xs mt-2">Validate</button>
+                                    <LoadCanvasTemplate />
+                                    <input type="text" ref={captchaRef} placeholder="captcha" name="captcha" className="border-2 mt-3" /> <br />
+                                    <button onClick={handleValidate} className="btn btn-outline btn-xs mt-2">Validate</button>
                                 </div>
                             </div>
                             <div className="form-control mt-6">
-                                <input type="submit" name="" id="" disabled={disabled} className="btn btn-primary" value='Login'/>
+                                <input type="submit" name="" id="" disabled={disabled} className="btn btn-primary" value='Login' />
                             </div>
                         </form>
                         <div className="pb-5 text-center px-3">
