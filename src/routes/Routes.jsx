@@ -7,6 +7,7 @@ import Login from "../pages/Login/Login";
 import SignUp from "../pages/Login/SignUp";
 import Dashboard from "./Dashboard";
 import Cart from "../pages/Dashboard/Cart/Cart";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 
 
 const Routes = createBrowserRouter([
@@ -47,6 +48,12 @@ const Routes = createBrowserRouter([
             {
                 path: '/dashboard/cart',
                 element: <Cart></Cart>
+            },
+
+            // Admin Routes
+            {
+                path: '/dashboard/allUsers',
+                element: <AllUsers></AllUsers>
             }
         ]
     }

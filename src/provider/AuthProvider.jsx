@@ -13,6 +13,12 @@ const AuthProvider = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             // console.log(currentUser);
+            if(currentUser){
+                // 
+            }
+            else{
+                // todo
+            }
             setLoading(false);
         });
         return () => {
