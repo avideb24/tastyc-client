@@ -1,12 +1,16 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const SignUp = () => {
+    const axiosPublic = useAxiosPublic();
 
-    const {createUser} = useContext(AuthContext);
+    const { createUser } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleSignUp = e => {
         e.preventDefault();
@@ -16,28 +20,35 @@ const SignUp = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        const user = { name, email, password};
+        const user = { name, email };
         console.log(user);
 
         createUser(email, password)
-        .then(result => {
-            console.log(result.user);
-            Swal.fire({
-                icon: "success",
-                title: "Sign Up Successfully!",
-            });
-            form.reset();
-        })
-        .catch(err => {
-            console.log(err);
-            Swal.fire({
-                icon: "error",
-                title: "Something Wrong!",
-            });
-        })
+            .then(result => {
+                console.log(result.user);
+                axiosPublic.post('/users', user)
+                    .then(res => {
+                        console.log(res.data);
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Sign Up Successfully!",
+                            });
+                            navigate('/');
+                            form.reset();
+                        }
+                    })
+            })
+            .catch(err => {
+                console.log(err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Something Wrong!",
+                });
+            })
 
     }
-    
+
     return (
         <div className="max-w-7xl mx-auto py-10">
             <Helmet>
