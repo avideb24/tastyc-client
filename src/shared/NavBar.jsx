@@ -8,14 +8,14 @@ import useCart from "../hooks/useCart";
 const NavBar = () => {
 
     const [cart] = useCart();
-    console.log(cart);
+    // console.log(cart);
 
     const { user, logOutUser } = useContext(AuthContext);
 
     const handleLogOut = () => {
         logOutUser()
             .then(result => {
-                console.log(result);
+                // console.log(result);
                 Swal.fire({
                     icon: "success",
                     title: "LogOut Successfully!",
