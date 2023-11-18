@@ -22,7 +22,7 @@ const Dashboard = () => {
                                         <NavLink to='/dashboard/addItem' className="flex items-center gap-2"><FaCalendar></FaCalendar> Add Items</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/' className="flex items-center gap-2"><FaCreditCard></FaCreditCard> Manage Bookings</NavLink>
+                                        <NavLink to='/dashboard/manageItems' className="flex items-center gap-2"><FaCreditCard></FaCreditCard> Manage Items</NavLink>
                                     </li>
                                     <li>
                                         <NavLink to='/dashboard/allUsers' className="flex items-center gap-2"><FaUserFriends></FaUserFriends> All Users</NavLink>

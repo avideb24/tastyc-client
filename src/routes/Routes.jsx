@@ -11,6 +11,8 @@ import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import AddItems from "../pages/Dashboard/AddItem/AddItems";
+import ManageItems from "../pages/Dashboard/ManageItem/ManageItems";
+import UpdateItem from "../pages/Dashboard/UpdatedItems/UpdateItem";
 
 
 const Routes = createBrowserRouter([
@@ -62,6 +64,14 @@ const Routes = createBrowserRouter([
             {
                 path: '/dashboard/addItem',
                 element: <AdminRoute><AddItems></AddItems></AdminRoute>
+            },
+            {
+                path: '/dashboard/manageItems/',
+                element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
+            },
+            {
+                path: '/dashboard/updateItem/:id',
+                element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>
             }
         ]
     }
