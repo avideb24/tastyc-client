@@ -16,30 +16,22 @@ const AllUsers = () => {
         }
     })
 
-    // const { data: users = [], refetch } = useQuery({
-    //     queryKey: ['users'],
-    //     queryFn: async () => {
-    //         const res = await axiosSecure.get('/users')
-    //         return res.data
-    //     }
-    // });
-
     const handleMakeAdmin = user => {
         console.log(user);
-        // axiosSecure.patch(`/users/admin/${user._id}`)
-        //     .then(res => {
-        //         console.log(res.data);
-        //         refetch();
-        //         if (res.data.modifiedCount > 0) {
-        //             Swal.fire({
-        //                 position: "top-end",
-        //                 icon: "success",
-        //                 title: "Your work has been saved",
-        //                 showConfirmButton: false,
-        //                 timer: 1500
-        //             });
-        //         }
-        //     })
+        axiosSecure.patch(`/users/admin/${user._id}`)
+            .then(res => {
+                console.log(res.data);
+                refetch();
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
     }
 
     const handleDeleteUser = id => {
