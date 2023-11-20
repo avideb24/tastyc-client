@@ -4,17 +4,14 @@ import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaUtensils } from "react-icons/fa";
-import { useParams } from "react-router-dom";
-
+import { useLoaderData } from "react-router-dom";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`; 
 
 const UpdateItem = () => {
 
-    const {id} = useParams();
-    console.log(id);
-
+    const { _id, name, category, recipe, price } = useLoaderData();
 
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
@@ -36,12 +33,12 @@ const UpdateItem = () => {
                 image: res.data.data.display_url
             };
 
-            const menuRes = await axiosSecure.post('/menu', menuItem);
-            if(menuRes.data.insertedId){
+            const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem);
+            if(menuRes.data.modifiedCount > 0){
                 reset();
                 Swal.fire({
                     icon: "success",
-                    title: `${data.name} Added Successfully!`,
+                    title: `${data.name} Updated Successfully!`,
                 });
 
             }
@@ -57,11 +54,11 @@ const UpdateItem = () => {
         <SectionTitle heading={'Update Items'} subHeading={"---What's New---"}></SectionTitle>
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input {...register("name", {required: true})} className="border-2 border-black p-2 w-full my-2" placeholder="Recipe Name" />
-                <input {...register("price", {required: true})} className="border-2 border-black p-2 w-full my-2" placeholder="Price" />
-                <input {...register("recipe", {required: true})} className="border-2 border-black p-2 w-full my-2" placeholder="Recipe Details" />
-                <select {...register("category", {required: true})} className="select select-bordered border-black w-full" defaultValue={'default'}>
-                    <option disabled value={'default'}>Select A Category</option>
+                <input {...register("name", {required: true})} defaultValue={name} className="border-2 border-black p-2 w-full my-2" placeholder="Recipe Name" />
+                <input {...register("price", {required: true})} defaultValue={price} className="border-2 border-black p-2 w-full my-2" placeholder="Price" />
+                <input {...register("recipe", {required: true})} defaultValue={recipe} className="border-2 border-black p-2 w-full my-2" placeholder="Recipe Details" />
+                <select {...register("category", {required: true})}  className="select select-bordered border-black w-full" defaultValue={category}>
+                    <option disabled>Select A Category</option>
                     <option>Offered</option>
                     <option>Dessert</option>
                     <option>Pizza</option>

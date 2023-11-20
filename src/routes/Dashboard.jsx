@@ -34,7 +34,7 @@ const Dashboard = () => {
                                         <NavLink to='/' className="flex items-center gap-2"><FaHome></FaHome> User Home</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='' className="flex items-center gap-2"><FaCalendar></FaCalendar> Reservation</NavLink>
+                                        <NavLink to='/dashboard/payment' className="flex items-center gap-2"><FaCalendar></FaCalendar> Reservation</NavLink>
                                     </li>
                                     <li>
                                         <NavLink to='' className="flex items-center gap-2"><FaCreditCard></FaCreditCard> Payment History</NavLink>

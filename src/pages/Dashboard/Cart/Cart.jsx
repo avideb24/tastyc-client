@@ -3,6 +3,7 @@ import SectionTitle from "../../../components/SectionTitle";
 import useCart from "../../../hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
 
@@ -36,6 +37,10 @@ const Cart = () => {
                     })
             }
         });
+    };
+
+    const handlePay = () => {
+
     }
 
     return (
@@ -44,7 +49,12 @@ const Cart = () => {
             <div className="text-2xl uppercase flex justify-around py-4">
                 <h2>Total Orders: {cart.length}</h2>
                 <p>Total Price: ${totalPrice}</p>
-                <button className="btn btn-primary">Pay</button>
+                {cart.length ? <Link to='/dashboard/payment'>
+                    <button onClick={handlePay} className="btn btn-primary">Pay</button>
+                </Link>
+                    :
+                    <button onClick={handlePay} disabled className="btn btn-primary">Pay</button>
+                }
             </div>
             <div>
 
