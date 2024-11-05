@@ -58,7 +58,6 @@ const FoodCard = ({ item }) => {
             <div className="card-body text-center">
                 <h2 className="card-title mx-auto">{name}</h2>
                 <p>{recipe}</p>
-                {/* add to cart */}
                 <div className="card-actions justify-center">
                     <button onClick={() => handleAddToCart(item)} className="border-b-4 font-bold duration-200 border-b-[#BB8506] bg-[#e2dede] py-2 px-4 rounded-md hover:bg-[#2e2d2d] mt-3 text-[#BB8506]">Add To Cart</button>
                 </div>
