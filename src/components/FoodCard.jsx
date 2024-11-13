@@ -55,7 +55,7 @@ const FoodCard = ({ item }) => {
         <div className="card w-96 bg-base-100 shadow-xl relative">
             <figure><img src={image} alt="Shoes" /></figure>
             <div className="absolute top-3 right-3 py-1 px-3 text-white bg-[#292828]">${price}</div>
-            
+            {/* card body */}
             <div className="card-body text-center">
                 <h2 className="card-title mx-auto">{name}</h2>
                 <p>{recipe}</p>
